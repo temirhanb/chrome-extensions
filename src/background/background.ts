@@ -1,7 +1,17 @@
-chrome.webRequest.onBeforeRequest.addListener(
-  function(details) {
-      return {cancel: details.url.indexOf("://www.evil.com/") != -1};
-  },
-  {urls: ["<all_urls>"]},
-  ["blocking"]
-);
+function injectScript(tabId) {
+
+  chrome.scripting.executeScript(
+    {
+      target: {tabId: tabId},
+      files: ['index.js'],
+    }
+  );
+}
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+
+  if (changeInfo.url) {
+
+    injectScript(tabId);
+  }
+});
