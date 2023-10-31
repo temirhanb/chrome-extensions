@@ -8,7 +8,8 @@ module.exports = {
   mode: "development",
   devtool: 'cheap-module-source-map',
   entry: {
-    index: path.resolve("./src/index.tsx")
+    index: path.resolve("./src/app/index.tsx"),
+    background: path.resolve("./src/background/background.ts"),
   },
   module: {
     rules: [
@@ -16,7 +17,12 @@ module.exports = {
         use: "ts-loader",
         test: /\.tsx$/,
         exclude: /node-modules/
-      }, {
+      },
+      {
+        type: "static/",
+        test: /\.(png|svg|jpeg|jpg|woff|woff2|tff)$/,
+      },
+      {
         use: ['style-loader', 'css-loader', {
           loader: "postcss-loader",
           options: {
@@ -32,19 +38,27 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        {from: path.resolve('src/manifest.json'), to: path.resolve('dist')},
+        {
+          from: path.resolve('src/static'),
+          to: path.resolve('dist')},
       ],
     }),
-    new HtmlPlugin({
-      title: "Webpack App",
-      filename: "index.html",
-      chunks: ['index']
-    }),
+    ...getHtmlChunks([
+      'index'
+    ]),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
   output: {
     filename: "[name].js"
-  }
+  },
+}
+
+function getHtmlChunks(chunks) {
+  return chunks.map(chunk => new HtmlPlugin({
+    title: "Webpack App",
+    filename: `${chunk}.html`,
+    chunks: [chunk]
+  }))
 }

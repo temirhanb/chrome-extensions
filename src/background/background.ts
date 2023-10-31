@@ -1,5 +1,7 @@
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    console.log(msg);
-    console.log(sender);
-    sendResponse("Front the background Script");
-})
+chrome.webRequest.onBeforeRequest.addListener(
+  function(details) {
+      return {cancel: details.url.indexOf("://www.evil.com/") != -1};
+  },
+  {urls: ["<all_urls>"]},
+  ["blocking"]
+);

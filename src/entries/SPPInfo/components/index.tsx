@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { fetchUserInfo } from "../api";
 
-export const SppInfo:React.FC = ()=>{
-  return(
+export const SppInfo: React.FC = () => {
+ useEffect(()=>{
+   const userInfo = fetchUserInfo()
+   console.log(userInfo)
+ },[])
+  return (
     <div>
-      <div>СПП:29</div>
+      <div>
+        <div>
+          <img src="./graph.png" alt="icon graph"/>
+          <p> СПП:29</p>
+        </div>
+      </div>
       <div>До СПП:100</div>
     </div>
   )
