@@ -11,7 +11,7 @@
       "run_at": "document_idle",
       "all_frames": false,
       "js": [
-        "/dist/index.js"
+        "index.js"
       ]
     }
   ],
