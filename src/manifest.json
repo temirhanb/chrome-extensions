@@ -6,10 +6,10 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.wildberries.ru/*"
+        "https://www.wildberries.ru/catalog/*"
       ],
       "run_at": "document_idle",
-      "all_frames": false,
+      "all_frames": true,
       "js": [
         "index.js"
       ]

@@ -1,20 +1,22 @@
 import React from 'react'
 import { createRoot } from "react-dom/client";
+import './assets/tailwind.css'
+import { ProductStatistics } from "./widjet";
 
 const App: React.FC = () => {
 
   console.log('hello world')
   return (
-    <div>
-      <h1>Hello world</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium at aut, commodi doloremque ea enim est
-        eum impedit labore laborum libero nemo nesciunt nobis optio possimus quam recusandae voluptates?</p>
+    <div className='flex flex-col w-250 h-400 border-2 rounded-[10px] border-slate-400'>
+      <ProductStatistics/>
     </div>
   )
 }
 
 const container = document.createElement('div')
-document.body.appendChild(container)
+container.style.cssText = 'position:fixed; z-index:1000; top: 10%; right: 5%;'
+const wrapper = document.getElementById('body-layout')
+wrapper.appendChild(container)
 const root = createRoot(container)
 root.render(<App/>)
 
