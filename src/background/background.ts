@@ -1,17 +1,14 @@
-function injectScript(tabId) {
-
-  chrome.scripting.executeScript(
-    {
-      target: {tabId: tabId},
-      files: ['index.js'],
+chrome.tabs.onUpdated.addListener(
+  function (tabId, changeInfo, tab) {
+    if (changeInfo.url) {
+      return chrome.tabs.sendMessage(tabId, {
+        message: 'changed',
+        url: changeInfo.url
+      })
     }
-  );
-}
-
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-
-  if (changeInfo.url) {
-
-    injectScript(tabId);
+    return chrome.tabs.sendMessage(tabId, {
+      message: 'init',
+      url: tab.url
+    })
   }
-});
+);
