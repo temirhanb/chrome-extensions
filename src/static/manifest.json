@@ -8,18 +8,23 @@
       "matches": [
         "https://www.wildberries.ru/*"
       ],
+      "all_frames": true,
       "js": [
         "index.js"
       ]
     }
   ],
-
   "background": {
     "service_worker": "background.js"
   },
   "permissions": [
     "activeTab",
-    "bookmarks",
+    "tabs",
+    "webRequest",
+    "idle",
+    "debugger",
+    "storage",
+    "webNavigation",
     "scripting"
   ],
   "host_permissions": [

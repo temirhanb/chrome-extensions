@@ -1,14 +1,12 @@
-chrome.tabs.onUpdated.addListener(
-  function (tabId, changeInfo, tab) {
-    if (changeInfo.url) {
-      return chrome.tabs.sendMessage(tabId, {
-        message: 'changed',
-        url: changeInfo.url
-      })
+chrome.runtime.onInstalled.addListener(function () {
+
+  chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+
+    if (changeInfo.status === 'complete') {
+      chrome.tabs.sendMessage(tabId, {
+        message: 'TabUpdated',
+        url: tab.url
+      });
     }
-    return chrome.tabs.sendMessage(tabId, {
-      message: 'init',
-      url: tab.url
-    })
-  }
-);
+  })
+});

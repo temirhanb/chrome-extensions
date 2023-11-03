@@ -9,6 +9,7 @@ export const SppInfo: React.FC = () => {
   const [actionBackground, setActionBackground] = useState<IAction>({})
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     setActionBackground(request)
+    sendResponse(actionBackground)
   })
   const url = actionBackground.url
 
@@ -18,7 +19,7 @@ export const SppInfo: React.FC = () => {
       <div>
         <div>
           <img src={imageGraph} alt="icon graph"/>
-          <p> СПП: {url}</p>
+          <p> СПП: {window.location.href}</p>
         </div>
       </div>
       <div>До СПП:100</div>
